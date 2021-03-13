@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"path/filepath"
 	"reader.app/const"
-	"reader.app/db"
 )
 
 func main() {
@@ -17,9 +16,11 @@ func main() {
 		Addr: _const.Address,
 	}
 
+
 	router.HandleFunc("/", HtmlHome).Methods("GET")
 	router.HandleFunc("/test", testConnection).Methods("GET")
 	router.HandleFunc("/api", ApiHome).Methods("GET")
+	router.HandleFunc("/api/books", listBooks).Methods("GET")
 	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("./static/")))
 
 	fmt.Printf("%s %s", "Server Running on", _const.Address)
@@ -38,7 +39,7 @@ func main() {
 	println(filepath.Join(dir, ".env"))
 
 	// Connect to the database
-	db.ConnectToDB()
+	ConnectToDB()
 
 	// Start Serving
 	err = server.ListenAndServe()

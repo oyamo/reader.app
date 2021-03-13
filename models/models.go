@@ -28,3 +28,8 @@ type Annexture struct {
 	BookId  primitive.ObjectID `json:"_book_id,omitempty" bson:"_book_id,omitempty"`
 	Content string             `json:"annexture" bson:"annexture,omitempty"`
 }
+
+type Error struct {
+	Code int `json:"code"`
+	Cause string `json:"cause"`
+}
